@@ -1,27 +1,29 @@
 import java.util.Stack;
  
-class convertToPostfix
+public class convertToPostfix extends StackInterface<T>
 {
      
-    // A utility function to return
-    // precedence of a given operator
-    // Higher returned value means
-    // higher precedence
-    static int Prec(char ch)
+    
+    public static int op(char operators)
     {
-        switch (ch)
+        //switch statement to give 'priority' (values) to the different symbols via PEMDAS
+        switch (operators)
         {
-        case '+':
-        case '-':
-            return 1;
-      
-        case '*':
-        case '/':
-            return 2;
+            //each case is set to return as a value to represet the specific operation.
+            // + and - return as a specific number different from * and /
+            case '+':
+            case '-':
+                return 1;
+        
+            case '*':
+            case '/':
+                return 2;
+            case '^':
+                return 3;
         }
         return -1;
     }
-      static String infixToPostfix(String exp)
+    public static String infixToPostfix(String exp)
     {
         // initializing empty String for result
         String result = new String("");
@@ -56,8 +58,8 @@ class convertToPostfix
             }
             else // an operator is encountered
             {
-                while (!stack.isEmpty() && Prec(c)
-                         <= Prec(stack.peek())){
+                while (!stack.isEmpty() && op(c)
+                         <= op(stack.peek())){
                    
                     result += stack.pop();
              }
@@ -75,10 +77,5 @@ class convertToPostfix
         return result;
     }
    
-    // Driver method
-    public static void main(String[] args)
-    {
-        String exp = "a*b/(c-a)+d*e";
-        System.out.println(infixToPostfix(exp));
-    }
+
 }

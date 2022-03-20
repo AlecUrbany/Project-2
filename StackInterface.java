@@ -4,7 +4,7 @@
    @author Timothy M. Henry
    @version 5.0
 */
-public interface StackInterface<T> implements convertToPostfix
+public interface StackInterface<T>
 {
    /** Adds a new entry to the top of this stack.
        @param newEntry  An object to be added to the stack. */
