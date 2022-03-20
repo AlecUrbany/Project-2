@@ -1,16 +1,15 @@
 import java.util.Stack;
  
-public class convertToPostfix extends StackInterface<T>
+public interface convertToPostfix extends StackInterface<T>
 {
      
     
-    public static int op(char operators)
+    public static int operands(char operators)
     {
         //switch statement to give 'priority' (values) to the different symbols via PEMDAS
         switch (operators)
         {
-            //each case is set to return as a value to represet the specific operation.
-            // + and - return as a specific number different from * and /
+            //each case represents a different math operation with a priority value to be returned
             case '+':
             case '-':
                 return 1;
@@ -21,57 +20,59 @@ public class convertToPostfix extends StackInterface<T>
             case '^':
                 return 3;
         }
+        //if no operations are being used, the system will return -1, an integer that should let it know that there's nothing to do. It's a buffer
         return -1;
     }
     public static String infixToPostfix(String exp)
     {
-        // initializing empty String for result
+        // creating a string that will give you the result
         String result = new String("");
          
-        // initializing empty stack
-        Stack<Character> stack = new Stack<>();
+        // Create empty stack
+        Stack<T> stack = new Stack<>();
          
-        for (int i = 0; i<exp.length(); ++i)
+        for (int i = 0; i < exp.length(); ++i)
         {
-            char c = exp.charAt(i);
+            char character = exp.charAt(i);
              
-            // If the scanned character is an
-            // operand, add it to output.
-            if (Character.isLetterOrDigit(c))
-                result += c;
-              
-            // If the scanned character is an '(',
-            // push it to the stack.
-            else if (c == '(')
-                stack.push(c);
-             
-            //  If the scanned character is an ')',
-            // pop and output from the stack
-            // until an '(' is encountered.
-            else if (c == ')')
+            //If statement to check for whether the input is alphabetical or numerical,returns true if either is the case, false if it isnt
+            if (T.isLetterOrDigit(character))
             {
-                while (!stack.isEmpty() &&
-                        stack.peek() != '(')
+                result += character;
+            }
+            // If there is an open parenthesis in the equation, we put it in the stack 
+            else if (character == '(')
+            {
+                stack.push(character);
+            }
+            //  If there is a closed parenthesis, the parenthsis is popped as it looks for another open parenthesis 
+            else if (character == ')')
+            {
+                while (!stack.isEmpty() && stack.peek() != '(')
+                {
                     result += stack.pop();
                  
                     stack.pop();
+                }
             }
-            else // an operator is encountered
+            else // else statement to account for anything not specified in the first 3 statements
             {
-                while (!stack.isEmpty() && op(c)
-                         <= op(stack.peek())){
-                   
+                while (!stack.isEmpty() && operands(character) <= operands(stack.peek()))
+                {   
+                   //character operand that remains inside the stack is cycled thruough this until the expression becomes false
                     result += stack.pop();
-             }
-                stack.push(c);
+                }
+                //once it is false it puts the character onto the stack and puts it at the end 
+                stack.push(character);
             }
       
         }
       
-        // pop all the operators from the stack
-        while (!stack.isEmpty()){
+        // delete operators in stack
+        while (!stack.isEmpty())
+        {
             if(stack.peek() == '(')
-                return "Invalid Expression";
+                return "Don't use that character, dummy";
             result += stack.pop();
          }
         return result;
