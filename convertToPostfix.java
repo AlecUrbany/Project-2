@@ -1,6 +1,7 @@
-import java.util.Stack;
+import java.time.format.TextStyle;
+
  
-public interface convertToPostfix extends StackInterface<T>
+public interface convertToPostfix<T> extends StackInterface<T>
 {
      
     
@@ -29,19 +30,14 @@ public interface convertToPostfix extends StackInterface<T>
         String result = new String("");
          
         // Create empty stack
-        Stack<T> stack = new Stack<>();
+        LinkedStack<Character> stack = new LinkedStack<>();
          
         for (int i = 0; i < exp.length(); ++i)
         {
             char character = exp.charAt(i);
              
-            //If statement to check for whether the input is alphabetical or numerical,returns true if either is the case, false if it isnt
-            if (T.isLetterOrDigit(character))
-            {
-                result += character;
-            }
             // If there is an open parenthesis in the equation, we put it in the stack 
-            else if (character == '(')
+            if (character == '(')
             {
                 stack.push(character);
             }
@@ -77,6 +73,4 @@ public interface convertToPostfix extends StackInterface<T>
          }
         return result;
     }
-   
-
 }

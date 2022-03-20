@@ -1,12 +1,11 @@
 import java.util.EmptyStackException;
-
 import javax.sql.ConnectionEventListener;
 /**
     A class of stacks whose entries are stored in a chain of nodes.
     @author Frank M. Carrano and Timothy M. Henry
     @version 5.0
 */
-public final class LinkedStack<T> implements convertToPostfix
+public abstract class LinkedStack<T> implements convertToPostfix
 {
 	private Node topNode; // References the first node in the chain
   
@@ -53,5 +52,36 @@ public final class LinkedStack<T> implements convertToPostfix
       {
          next = nextNode;
       } // end setNextNode
+      public void push(T newEntry)
+      {
+         Node newNode = new Node(newEntry, topNode);
+         topNode = newNode;
+      } // end push
+      public boolean isEmpty()
+      {
+            return topNode == null;
+      } // end isEmpty
+      public void clear()
+      {
+         topNode = null;
+      } // end clear
+      public T peek()
+      {
+         if (isEmpty())
+         {
+            throw new EmptyStackException();
+         }
+         else 
+         {
+            return topNode.getData();
+         }
+      }
+      public T pop()
+      {
+         T top = peek();
+         topNode = topNode.getNextNode();
+         return top;
+      } // end pop
+
 	} // end Node
 } // end LinkedStack 1

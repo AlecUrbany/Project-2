@@ -5,14 +5,15 @@ import javax.swing.JOptionPane;
     @author Frank M. Carrano and Timothy M. Henry
     @version 5.0
 */
-public final class LinkedStackTest
+public abstract class LinkedStackTest implements StackInterface
 {
    public static void main(String[] args)
    {
       // If you uncomment the below code, then it allows you to have user input to test other equations.
       //  String infix = JOptionPane.showInputDialog("Please input your equation you'd like to convert:");
-      //  System.out.println(infixToPostfix(infix));
+      //  System.out.println(convertToPostfix(infix));
        String infixExample = ("a*b/(c-a)+d*e");
-       System.out.println(infixToPostfix("Here's the infix expression from Task 1 as a postfix " + infixExample));
+       System.out.println(convertToPostfix("Here's the infix expression from Task 1 as a postfix " + infixExample));
    }
+
 }
