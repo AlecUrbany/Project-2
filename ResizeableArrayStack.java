@@ -110,3 +110,4 @@ public final class ResizeableArrayStack<T> implements StackInterface<T>
         if (!integrityOK)
             throw new SecurityException ("ResizeableArrayStack object is corrupt.");
     } // end checkintegrity
+}
