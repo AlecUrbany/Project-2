@@ -1,24 +1,58 @@
 import java.util.EmptyStackException;
-import javax.sql.ConnectionEventListener;
-/**
-    A class of stacks whose entries are stored in a chain of nodes.
-    @author Frank M. Carrano and Timothy M. Henry
-    @version 5.0
-*/
-public abstract class LinkedStack<T> implements convertToPostfix
-{
-	private Node topNode; // References the first node in the chain
-  
-   public LinkedStack()
-   {
-      topNode = null;
-   } // end default constructor
-  
-//  < Implementations of the stack operations go here. >
-//  . . .
 
-	private class Node
-	{
+public final class LinkedStack<T> implements StackInterface<T>
+{
+    private Node topNode; // References the first node in the chain
+    
+    public LinkedStack()
+    {
+        topNode = null;
+    } // end default constructor
+    
+   /** Adds a new entry to the top of this stack.
+       @param newEntry  An object to be added to the stack. */
+    public void push(T newEntry)
+    {
+        Node newNode = new Node(newEntry, topNode);
+        topNode = newNode;
+    }
+    
+   /** Removes and returns this stack's top entry.
+       @return  The object at the top of the stack. 
+       @throws  EmptyStackException if the stack is empty before the operation. */
+    public T pop()
+    {
+        T top = peek();
+        topNode = topNode.getNextNode();
+        return top;
+    }
+    
+   /** Retrieves this stack's top entry.
+       @return  The object at the top of the stack.
+       @throws  EmptyStackException if the stack is empty. */
+    public T peek()
+    {
+        if (!isEmpty())
+            return topNode.getData();
+        else
+            throw new EmptyStackException(); 
+    }
+    
+   /** Detects whether this stack is empty.
+       @return  True if the stack is empty. */
+    public boolean isEmpty()
+    {
+        return topNode == null;
+    }
+    
+   /** Removes all entries from this stack. */
+    public void clear()
+    {
+        topNode = null;
+    }
+
+    private class Node
+    {
       private T    data; // Entry in stack
       private Node next; // Link to next node
       
@@ -52,36 +86,5 @@ public abstract class LinkedStack<T> implements convertToPostfix
       {
          next = nextNode;
       } // end setNextNode
-      public void push(T newEntry)
-      {
-         Node newNode = new Node(newEntry, topNode);
-         topNode = newNode;
-      } // end push
-      public boolean isEmpty()
-      {
-            return topNode == null;
-      } // end isEmpty
-      public void clear()
-      {
-         topNode = null;
-      } // end clear
-      public T peek()
-      {
-         if (isEmpty())
-         {
-            throw new EmptyStackException();
-         }
-         else 
-         {
-            return topNode.getData();
-         }
-      }
-      public T pop()
-      {
-         T top = peek();
-         topNode = topNode.getNextNode();
-         return top;
-      } // end pop
-
-	} // end Node
-} // end LinkedStack 1
+    } // end Node
+} // end LinkedStack

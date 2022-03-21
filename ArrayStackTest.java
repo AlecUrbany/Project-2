@@ -3,7 +3,7 @@
     @author Frank M. Carrano and Timothy M. Henry
     @version 5.0
 */
-public final class ArrayStack<T> implements StackInterface<T>
+public final class ArrayStackTest<T> implements StackInterface<T>
 {
 	private T[] stack;    // Array of stack entries
 	private int topIndex; // Index of top entry
@@ -33,4 +33,4 @@ public final class ArrayStack<T> implements StackInterface<T>
 //  < Implementations of the private methods go here; checkCapacity and checkIntegrity
 //    are analogous to those in Chapter 2. >
 //  . . .
-} // end ArrayStack 1
+} // end ArrayStackTest
