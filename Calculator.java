@@ -4,12 +4,16 @@ public class Calculator
 {
 
     public static void main(String[] args)
-    {
-       String infixExample = ("a*b/(c-a)+d*e");
-       System.out.println(convertToPostfix(infixExample));
+    {       
+        // This will input a numerical post fix expression into our evaluator. Then, it will print the answer 
+        String postfix = "23*42-/56*+";
+        System.out.println(evaluatePostfix(postfix));
 
-       String postfix = "23*42-/56*+";
-       System.out.println(evaluatePostfix(postfix));
+        // This will input a infix expression that will then be converted to post fix.
+        String infixExample = ("a*b/(c-a)+d*e");
+        System.out.println(convertToPostfix(infixExample));
+
+
     }
 
     public static int evaluatePostfix(String expression)
@@ -70,10 +74,12 @@ public class Calculator
         {
             //each case represents a different math operation with a priority value to be returned
             case '+':
+                return 1;
             case '-':
                 return 1;
         
             case '*':
+                return 2;
             case '/':
                 return 2;
             case '^':
@@ -86,7 +92,7 @@ public class Calculator
     public static String convertToPostfix(String exp)
     {
         // creating a string that will give you the result
-        String result = "";
+        String result =new String("");
          
         // Create empty stack
         LinkedStack<Character> stack = new LinkedStack<>();
@@ -106,13 +112,11 @@ public class Calculator
                 while (!stack.isEmpty() && stack.peek() != '(')
                 {
                     result += stack.pop();
-                 
-                    stack.pop();
                 }
             }
             else // else statement to account for anything not specified in the first 3 statements
             {
-                while (!stack.isEmpty() && operands(character) <= operands(stack.peek()))
+                while (!stack.isEmpty() && (operands(character) <= operands(stack.peek())))
                 {   
                    //character operand that remains inside the stack is cycled thruough this until the expression becomes false
                     result += stack.pop();
