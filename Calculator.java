@@ -1,5 +1,3 @@
-
-
 public class Calculator
 {
 
@@ -10,7 +8,7 @@ public class Calculator
         System.out.println(evaluatePostfix(postfix));
 
         // This will input a infix expression that will then be converted to post fix.
-        String infixExample = ("a*b/(c-a)+d*e");
+        String infixExample = "a*b/(c-a)+d*e";
         System.out.println(convertToPostfix(infixExample));
 
 
@@ -74,49 +72,66 @@ public class Calculator
         {
             //each case represents a different math operation with a priority value to be returned
             case '+':
-                return 1;
             case '-':
-                return 1;
+                return 0;
         
-            case '*':
-                return 2;
             case '/':
-                return 2;
+            case '*':
+                return 1;
             case '^':
-                return 3;
+                return 2;
+                
         }
         //if no operations are being used, the system will return -1, an integer that should let it know that there's nothing to do. It's a buffer
         return -1;
     }
 
-    public static String convertToPostfix(String exp)
+    public static String convertToPostfix(String expression)
     {
-        // creating a string that will give you the result
+        // creating a blank string that will give you the result
         String result =new String("");
          
         // Create empty stack
         LinkedStack<Character> stack = new LinkedStack<>();
+
+        // This is the character that we will be parsing from the expression
+        char character;
          
-        for (int i = 0; i < exp.length(); ++i)
+        // This for loop  will increment as we traverse through the stack
+        for (int i = 0; i < expression.length(); ++i)
         {
-            char character = exp.charAt(i);
+            character = expression.charAt(i);
              
-            // If there is an open parenthesis in the equation, we put it in the stack 
-            if (character == '(')
+            // If there is a character in the expression, it is added to the result
+            if (Character.isLetter(character))
+            {
+                result += character;
+            }
+
+
+            else if (character == '(')
             {
                 stack.push(character);
+
             }
-            //  If there is a closed parenthesis, the parenthsis is popped as it looks for another open parenthesis 
+            //  If there is a closed parenthesis, the parenthsis is popped and it adds anything between it and the open parenthesis.
             else if (character == ')')
             {
-                while (!stack.isEmpty() && stack.peek() != '(')
-                {
+                while (!stack.isEmpty() && stack.peek() != ')')
+                { 
+                    if (stack.peek() != '(')
+                    {
                     result += stack.pop();
+                    }
+                    else if (stack.peek() == '(')
+                    {
+                    stack.pop();
+                    }
                 }
             }
             else // else statement to account for anything not specified in the first 3 statements
             {
-                while (!stack.isEmpty() && (operands(character) <= operands(stack.peek())))
+                while (!stack.isEmpty() && operands(character) <= operands(stack.peek()))
                 {   
                    //character operand that remains inside the stack is cycled thruough this until the expression becomes false
                     result += stack.pop();
@@ -124,16 +139,18 @@ public class Calculator
                 //once it is false it puts the character onto the stack and puts it at the end 
                 stack.push(character);
             }
-      
         }
       
-        // delete operators in stack
+        // delete any stray operators in stack
         while (!stack.isEmpty())
         {
-            if(stack.peek() == '(')
-                return "Don't use that character, dummy";
+            if (stack.peek() == '(')
+                {
+                return "You used one too many open parenthesis, dummy";
+                }
             result += stack.pop();
-         }
+        }
+        // Will return the statement we've been working so hard to cultivate to the terminal.
         return result;
     }
 
