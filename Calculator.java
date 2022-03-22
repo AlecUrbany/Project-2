@@ -1,6 +1,12 @@
+/**
+*@author Alec Urbany
+*@author Nasser Alnabulsi
+*@version 1.00
+*/
 public class Calculator
 {
 
+    
     
     /** 
      * @param args
@@ -20,8 +26,8 @@ public class Calculator
 
     
     /** 
-     * @param expression
-     * @return int
+     * @param evaluatePostfix takes the postfix and calculates the value and returns it as an answer
+     * @return answer to postfix equation
      */
     public static int evaluatePostfix(String expression)
     {
@@ -76,8 +82,8 @@ public class Calculator
 
     
     /** 
-     * @param operators
-     * @return int
+     * @param operands- gives priority to the current operators and what is higher on the list 
+     * @return priority numbers and stores them for sorting
      */
     public static int operands(char operators)
     {
@@ -102,8 +108,8 @@ public class Calculator
 
     
     /** 
-     * @param expression
-     * @return String
+     * @param convertToPostFix a code to convert infix to postfix
+     * @return the postfix of the infix statement/equation inputted
      */
     public static String convertToPostfix(String expression)
     {
