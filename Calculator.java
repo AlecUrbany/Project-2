@@ -1,6 +1,10 @@
 public class Calculator
 {
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args)
     {       
         // This will input a numerical post fix expression into our evaluator. Then, it will print the answer 
@@ -14,6 +18,11 @@ public class Calculator
 
     }
 
+    
+    /** 
+     * @param expression
+     * @return int
+     */
     public static int evaluatePostfix(String expression)
     {
         // Setting up a new stack via a ResizeableArray. Also setting up the character, current. 
@@ -65,6 +74,11 @@ public class Calculator
         return valueStack.peek();
     }
 
+    
+    /** 
+     * @param operators
+     * @return int
+     */
     public static int operands(char operators)
     {
         //switch statement to give 'priority' (values) to the different symbols via PEMDAS
@@ -86,6 +100,11 @@ public class Calculator
         return -1;
     }
 
+    
+    /** 
+     * @param expression
+     * @return String
+     */
     public static String convertToPostfix(String expression)
     {
         // creating a blank string that will give you the result
@@ -119,6 +138,9 @@ public class Calculator
             {
                 while (!stack.isEmpty() && stack.peek() != ')')
                 { 
+                    //This is a nightmare, it took us an hour of trouble shooting to realize that we needed an if and an else if statement
+                    //This stupid series of if statements prevents the code from leaving in an extra '('
+                    //That's it. And it took us an hour to figure that out.
                     if (stack.peek() != '(')
                     {
                     result += stack.pop();

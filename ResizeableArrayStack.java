@@ -98,6 +98,10 @@ public final class ResizeableArrayStack<T> implements StackInterface<T>
         } // end if
     } // end ensureCapacity
     
+    
+    /** 
+     * @param capacity
+     */
     private void checkCapacity(int capacity)
     {
         if (capacity > MAX_CAPACITY)
